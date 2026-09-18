@@ -1,43 +1,47 @@
-import sys
+import os,sys
+
+input_file = os.path.join(os.path.dirname(__file__), "input.txt")
+if os.path.exists(input_file):
+    sys.stdin = open(input_file, "r")
+
+def rotate(pattern):
+    return ["".join(row) for row in zip(*pattern[::-1])]
+
+def get_canonical(pattern):
+    candidates = []
+    curr = pattern
+
+    for _ in range(2):
+        for _ in range(4):
+            candidates.append(tuple(curr))
+            curr = rotate(curr)
+        curr = [row[::-1] for row in curr]
+    return min(candidates)
 
 def main():
     input_data = sys.stdin.read().split()
     if not input_data:
         return
     
-    n = int(input_data[0])
-    h = int(input_data[1])
-    w = int(input_data[2])
+    N = int(input_data[0])
+    index = 1
+    unique_patterns = set()
 
-    cur_x = int(input_data[3]) - 1
-    cur_y = int(input_data[4]) - 1
+    for i in range(N):
+        H = int(input_data[index])
+        W = int(input_data[index + 1])
+        index += 2
 
-    moves = input_data[5]
-    grid_tokens = input_data[6 : 6 + h * w]
-    grid = [
-        [int(grid_tokens[r * w + c]) for c in range(w)]
-        for r in range(h)
-    ]
+        pattern = []
+        for _ in range(H):
+            pattern.append(input_data[index])
+            index += 1
 
-    direction = {
-        'F' : (-1, 0),
-        'B' : (1, 0),
-        'L' : (0, -1),
-        'R' : (0, 1),
-    }
+        canonical = get_canonical(pattern)
+        unique_patterns.add(canonical)
 
-    results = []
-    
-    for move in moves:
-        dx, dy = direction[move]
-        cur_y += dy
-        cur_x += dx
+    print(len(unique_patterns))
 
-        chocolsates = grid[cur_y][cur_x]
-        results.append(chocolsates)
-        print(chocolsates)
-    
-    print('\n'.join(map(str, results)))
 
 if __name__ == '__main__':
     main()
