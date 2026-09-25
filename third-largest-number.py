@@ -24,6 +24,7 @@ def main():
     if val > top3[2]:
       top3[2] = val
       top3.sort(reverse=True)
+    results.append(str(top3[2]))
       
   print("\n".join(results))
 
