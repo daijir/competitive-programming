@@ -8,6 +8,14 @@ using namespace std;
 
 const int INF = 1e9;
 
+// strctとclassの違い
+// 値型か参照型か
+// 値型 - 値のコピー
+// 参照型 - アドレスのコピー
+// 参照型はコストが高いので、基本的には値型を使う
+// struct - 参照型 - 値が変更される
+// class - 値型 - 値が変更されない
+
 struct SegmentTree {
     int n;
     vector<int> min_tree, max_tree;
