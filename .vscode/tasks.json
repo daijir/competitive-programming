@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "type": "cppbuild",
+      "type": "shell",
       "label": "C/C++: g++.exe デバッグ用ビルド",
       "command": "C:/msys64/ucrt64/bin/g++.exe",
       "args": [
@@ -15,12 +15,34 @@
       "options": {
         "cwd": "${fileDirname}"
       },
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": ["relative", "${fileDirname}"],
+        "pattern": {
+          "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "message": 5
+        }
+      },
       "group": {
         "kind": "build",
         "isDefault": true
       },
       "detail": "GDBデバッグ用の -g 付きビルド"
+    },
+    {
+      "type": "java (build)",
+      "paths": [
+        "${workspace}"
+      ],
+      "isFullBuild": false,
+      "group": "build",
+      "problemMatcher": [],
+      "label": "java (build): Build Workspace",
+      "detail": "$(tools) Build all the Java projects in workspace."
     }
   ]
 }
