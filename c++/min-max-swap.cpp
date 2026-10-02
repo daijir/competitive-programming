@@ -1,5 +1,7 @@
 // https://atcoder.jp/contests/abc476/tasks/abc476_e
 
+// がんばるぞ
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
