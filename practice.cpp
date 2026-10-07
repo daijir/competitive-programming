@@ -2,13 +2,17 @@
 using namespace std;
 
 int main() {
-	string s;
-	cin >> s;
-	int n = s.size();
-	string t(2 * n - 1, ' ');
+	int n; cin >> n;
 
-	for (int i = 0; i < n; i++) t[2 * i] = s[i];
-	for (int i = 1; i < n; i++) t[2 * i - 1] = 'o';
+	int c1 = 0, c10 = 0, c100 = 0;
 
-	cout << t << endl;
+	for (int i = 0; i < n; i++) {
+		int a;
+		cin >> a;
+		int x = (a + 999) / 1000 * 1000 - a;
+		c100 += x / 100;
+		c10 += x / 10 % 10;
+		c1 += x % 10;
+	}
+	cout << c1 << ' ' << c10 << ' ' << c100 << endl;
 }
